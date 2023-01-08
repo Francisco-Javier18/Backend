@@ -31,7 +31,7 @@ $result = array();
 if($ciudad != "Elige una ciudad" && $tipo != "Elige un tipo"){
     foreach($r as $e){
         if($e['Ciudad']==$ciudad && $e['Tipo']==$tipo){
-            array_push($result, $e); 
+            array_push($result, $e);  
 		}
     }
 } else if($ciudad!="Elige una ciudad"){

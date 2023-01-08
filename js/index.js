@@ -86,6 +86,30 @@ function mostrarTodo(){
   })
 }
 
+/*funcion para inicializar los select*/
+function cargardatos() {
+  $.ajax({
+    url: "./data-1.json",
+    success: function(datos) {
+      var datosCiudad = [];
+      var datosTipo =[];
+      for (var i = 0; i < datos.length; i++) {
+        if (datosCiudad.includes(datos[i].Ciudad) == false) {
+          $('#selectCiudad').append(`<option value="${datosCiudad.push(datos[i].Ciudad)}">${datos[i].Ciudad}</option>`)
+          /*console.log(datos[i].Ciudad);*/
+        }
+        if(datosTipo.includes(datos[i].Tipo) == false){
+          $('#selectTipo').append(`<option value=" ${datosTipo.push(datos[i].Tipo)}">${datos[i].Tipo}</option>`)
+        }
+      }
+
+      $('select').material_select();
+    }
+  });
+}
+
 $("#mostrarTodos").click(mostrarTodo);
+
+cargardatos();
 inicializarSlider();
 playVideoOnScroll();

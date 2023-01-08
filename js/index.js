@@ -48,7 +48,44 @@ function playVideoOnScroll(){
     }, 10)
 }
 
+/*Función para mostrar todas las opciones */
+function mostrarTodo(){
+  $.ajax({ 
+    url: "./data-1.json",  
+    dataType: "text",  
+    cache: false,
+    contentType: false,
+    processData: false, 
+    type: 'POST',
+    success: function(response){
 
+      const contenido = $("#uno")
+      const objeto = JSON.parse(response) 
+      var vista = ``;
+      for(i=0; i<objeto.length; i++){
+        vista += `<div class="itemMostrado card">
+                    <img src="img/home.jpg">
+                    <div class="card-stacked">
+                      <div class="card-content">
+                        <p><b>Dirección:</b> ${objeto[i].Direccion}</p>
+                        <p><b>Ciudad:</b> ${objeto[i].Ciudad}</p>
+                        <p><b>Telefono:</b> ${objeto[i].Telefono}</p>
+                        <p><b>Codigo Postal:</b> ${objeto[i].Codigo_Postal}</p>
+                        <p><b>Tipo:</b> ${objeto[i].Tipo}</p>
+                        <p><b>Precio:</b> <span class="precioTexto">${objeto[i].Precio}</span></p>
+                      </div>  
+                      <div class="card-action">
+                        <a href="#" class="">VER MAS</a>
+                      </div>
+                      
+                    </div>
+                  </div>`
+      }
+      contenido.html(vista)
+    }
+  })
+}
 
+$("#mostrarTodos").click(mostrarTodo);
 inicializarSlider();
 playVideoOnScroll();

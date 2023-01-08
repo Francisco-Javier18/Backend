@@ -108,6 +108,55 @@ function cargardatos() {
   });
 }
 
+function filtro() {
+  var formulario = new FormData()
+  formulario.append('tipo', $('#selectTipo option:selected').text())
+  formulario.append('ciudad', $('#selectCiudad option:selected').text())
+  formulario.append('precio', $('#rangoPrecio').val())
+  
+  $.ajax({
+    url: "./index.php",
+    dataType: "text",  
+    cache: false,
+    contentType: false,
+    processData: false, 
+    type: 'POST',
+    data: formulario,
+    success: function(datos) {
+      var dato = JSON.parse(datos)
+      console.log(dato) 
+      
+      var mostrar = "";
+      
+      for(var i = 0; i < dato.length; i++){
+        mostrar += `<div class="itemMostrado card">
+        <img src="img/home.jpg">
+        <div class="card-stacked">
+          <div class="card-content">
+            <p><b>Dirección:</b> ${dato[i].Direccion}</p>
+            <p><b>Ciudad:</b> ${dato[i].Ciudad}</p>
+            <p><b>Telefono:</b> ${dato[i].Telefono}</p>
+            <p><b>Codigo Postal:</b> ${dato[i].Codigo_Postal}</p>
+            <p><b>Tipo:</b> ${dato[i].Tipo}</p>
+            <p><b>Precio:</b> <span class="precioTexto">${dato[i].Precio}</span></p>
+          </div>  
+          <div class="card-action">
+            <a href="#" class="">VER MAS</a>
+          </div>
+          
+        </div>
+      </div>`
+      } 
+      $("#uno").html(mostrar);
+      $('select').material_select();
+    },
+    error: function(error){
+      console.log("error")
+    }
+  });
+}
+
+$("#submitButton").click(filtro);
 $("#mostrarTodos").click(mostrarTodo);
 
 cargardatos();
